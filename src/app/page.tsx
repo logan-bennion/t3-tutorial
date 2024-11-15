@@ -4,7 +4,9 @@ import Image from "next/image";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const images = await db.query.iamges.findMany();
+  const images = await db.query.iamges.findMany({
+    orderBy: (model, { desc }) => desc(model.id)
+  });
 
   console.log(images);
 
