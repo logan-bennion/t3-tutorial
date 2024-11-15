@@ -1,4 +1,7 @@
 import { db } from "~/server/db";
+import Image from "next/image";
+
+export const dynamic = "force-dynamic";
 
 const mockUrls = [
   "https://utfs.io/f/Or0gSLzxIRbKsuvxVlEY58GZdHxkeUMqvOF0urVihWyXpPaz",
@@ -25,7 +28,15 @@ export default async function HomePage() {
         ))}
         {mockImages.map((image, index) => (
           <div key={image.id + "-"+ index} className="w-48">
-            <img src={image.url} alt="image" />
+            <Image 
+              src={image.url}
+              alt="image"
+              width={192}
+              height={192}
+              priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
+              className="object-cover"
+            />
           </div>
         ))}
       </div>
