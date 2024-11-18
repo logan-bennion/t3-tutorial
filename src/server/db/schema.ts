@@ -18,7 +18,7 @@ import {
  */
 export const createTable = pgTableCreator((name) => `t3-tutorial_${name}`);
 
-export const iamges = createTable(
+export const images = createTable(
   "image",
   {
     id: integer("id").primaryKey().generatedByDefaultAsIdentity(),

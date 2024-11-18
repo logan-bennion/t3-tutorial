@@ -1,5 +1,7 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
+import { db } from "~/server/db";
+import { iamges } from "~/server/db/schema"
 
 const f = createUploadthing();
 
@@ -16,7 +18,7 @@ export const ourFileRouter = {
 
       // If you throw, the user will not be able to upload
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      if (!user) throw new UploadThingError("Unauthorized");
+      // if (!user) throw new UploadThingError("Unauthorized");
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
       return { userId: user.id };
@@ -27,6 +29,13 @@ export const ourFileRouter = {
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       console.log("file url", file.url);
+
+      await db.insert(iamges).values({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        name: file.name,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        url: file.url,
+      });
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { uploadedBy: metadata.userId };
