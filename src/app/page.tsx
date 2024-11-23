@@ -5,7 +5,7 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 export const dynamic = "force-dynamic";
 
 async function Images(){    
-  const images = await db.query.images.findMany({
+  const images = await db.query.iamges.findMany({
   orderBy: (model, { desc }) => desc(model.id)
 });
   return (
